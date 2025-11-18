@@ -1,0 +1,88 @@
+# Copyright (C) 2025 Site Health - add database checks
+# This file is distributed under the same license as the Site Health - add database checks package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Site Health - add database checks 0.1.20251118\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/site-health-db-checks\n"
+"POT-Creation-Date: 2025-11-18 15:58:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: site-health-db-checks.php:52 site-health-db-checks.php:80
+#: site-health-db-checks.php:97
+msgctxt "Title of section in Site Health results"
+msgid "Orphaned Postmeta"
+msgstr ""
+
+#: site-health-db-checks.php:58 site-health-db-checks.php:116
+#: site-health-db-checks.php:133
+msgctxt "Title of section in Site Health results"
+msgid "Large autoloaded option values"
+msgstr ""
+
+#: site-health-db-checks.php:77 site-health-db-checks.php:94
+#: site-health-db-checks.php:113 site-health-db-checks.php:130
+msgid "Performance"
+msgstr ""
+
+#. translators: %d: The number of orphaned postmeta rows in the database.
+
+#: site-health-db-checks.php:83
+msgid "Your database has %d row of orphaned postmeta data."
+msgid_plural "Your database has %d rows of orphaned postmeta data."
+msgstr[0] ""
+msgstr[1] ""
+
+#: site-health-db-checks.php:84 site-health-db-checks.php:120
+msgid "This may impact your site performance."
+msgstr ""
+
+#: site-health-db-checks.php:86
+msgid "You can install <a href=\"https://wordpress.org/plugins/advanced-database-cleaner/\">Advanced Database Cleaner</a> to delete these orphaned postmeta rows."
+msgstr ""
+
+#: site-health-db-checks.php:98
+msgid "Your database does not have any orphaned postmeta data."
+msgstr ""
+
+#. translators: %d: The number of large autoloaded options in the wp_options
+#. table.
+
+#: site-health-db-checks.php:119
+msgid "The options table has %d large autoloaded option."
+msgid_plural "The options table has %d large autoloaded options."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: This is the name of the wp_options table.
+
+#: site-health-db-checks.php:122
+msgid "You can examine the large autoloaded rows in the %s table. Some could be set not to be autoloaded."
+msgstr ""
+
+#: site-health-db-checks.php:134
+msgid "Your database does not have any large autoloaded options values."
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Site Health - add database checks"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.damiencarbery.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add some database checks to Site Health - look for orphaned postmeta and large options values."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Damien Carbery"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.damiencarbery.com"
+msgstr ""
