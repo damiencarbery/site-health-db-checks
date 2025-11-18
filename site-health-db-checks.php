@@ -5,6 +5,10 @@ Plugin URI: https://www.damiencarbery.com/
 Description: Add some database checks to Site Health - look for orphaned postmeta and large options values.
 Author: Damien Carbery
 Author URI: https://www.damiencarbery.com
+License: GPL v3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: site-health-db-checks
+Domain Path: /languages
 Version: 0.1.20251118
 */
 
@@ -26,28 +30,32 @@ class SiteHealthDBChecks {
 
 	// Initialize the plugin variables.
 	private function __construct() {
-		//$this->privateUploads = false;
-
 		$this->init();
 	}
 
 
 	// Set up WordPress specfic actions.
 	private function init() {
+		//add_action( 'init', array( $this, 'load_translations' ) );
 		add_filter( 'site_status_tests', array( $this, 'registerTests' ) );
 	}
+
+
+	/*public function load_translations() {
+		load_plugin_textdomain( 'site-health-db-checks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}*/
 
 
 	public function registerTests( $tests ) {
 		//error_log( var_export( $tests, true ) );
 		$tests['direct']['dcwd_orphan_postmeta'] = [
-			'label' => 'Orphaned Postmeta',
+			'label' => _x( 'Orphaned Postmeta', 'Title of section in Site Health results', 'site-health-db-checks' ),
 			'test'  => array( $this, 'testOrphanedPostmeta' ),
 			'skip_cron' => true,
 		];
 
 		$tests['direct']['dcwd_large_option_values'] = [
-			'label' => 'Large autoloaded option values',
+			'label' => _x( 'Large autoloaded option values', 'Title of section in Site Health results', 'site-health-db-checks' ),
 			'test'  => array( $this, 'testLargeOptionValues' ),
 			'skip_cron' => true,
 		];
@@ -64,25 +72,30 @@ class SiteHealthDBChecks {
 		if ( $orphans[0][0] > 0 ) {
 			return array(
 				'test'=> $test,
-				'status' => 'critical', // 'good', 'recommended'
+				'status' => 'recommended',
 				'badge'       => array(
-					'label' => 'Performance',
+					'label' => __( 'Performance' ),
 					'color' => 'blue',
 				),
-				'label' => 'Orphaned Postmeta',
-				'description' => sprintf( '<p>Your database has ' . _n('%d row', '%d rows', $orphans[0][0], 'site-health-db-checks') . ' of orphaned postmeta data. This may impact your site performance.</p>', $orphans[0][0] ),
-				'actions' => '<p>You can install <a href="https://wordpress.org/plugins/advanced-database-cleaner/">Advanced Database Cleaner</a> to delete these orphaned postmeta rows.</p>'
-			);		}
+				'label' => _x( 'Orphaned Postmeta', 'Title of section in Site Health results', 'site-health-db-checks' ),
+				'description' => sprintf( '<p>%s %s</p>',
+							/* translators: %d: The number of orphaned postmeta rows in the database. */
+							sprintf( _n( 'Your database has %d row of orphaned postmeta data.', 'Your database has %d rows of orphaned postmeta data.', $orphans[0][0], 'site-health-db-checks' ), $orphans[0][0] ),
+							__( 'This may impact your site performance.', 'site-health-db-checks' ) ),
+				//'description' => sprintf( '<p>Your database has ' . _n('%d row', '%d rows', $orphans[0][0], 'site-health-db-checks') . ' of orphaned postmeta data. This may impact your site performance.</p>', $orphans[0][0] ),
+				'actions' => sprintf( '<p>%s</p>', __( 'You can install <a href="https://wordpress.org/plugins/advanced-database-cleaner/">Advanced Database Cleaner</a> to delete these orphaned postmeta rows.', 'site-health-db-checks' ) )
+			);
+		}
 
 		return array(
 			'test'=> $test,
 			'status' => 'good',
 			'badge'       => array(
-				'label' => 'Performance',
+				'label' => __( 'Performance' ),
 				'color' => 'blue',
 			),
-			'label' => 'Orphaned Postmeta',
-			'description' => 'Your database does not have any orphaned postmeta data.',
+			'label' => _x( 'Orphaned Postmeta', 'Title of section in Site Health results', 'site-health-db-checks' ),
+			'description' => __( 'Your database does not have any orphaned postmeta data.', 'site-health-db-checks' ),
 		);
 	}
 
@@ -95,25 +108,30 @@ class SiteHealthDBChecks {
 		if ( $lg_values[0][0] > 0 ) {
 			return array(
 				'test'=> $test,
-				'status' => 'critical', // 'good', 'recommended'
+				'status' => 'recommended',
 				'badge'       => array(
-					'label' => 'Performance',
+					'label' => __( 'Performance' ),
 					'color' => 'blue',
 				),
-				'label' => 'Large autoloaded options',
-				'description' => sprintf( '<p>The options table has ' . _n('%d large autoloaded option', '%d large autoloaded options', $lg_values[0][0], 'site-health-db-checks') . '. This may impact your site performance.</p>', $lg_values[0][0] ),
-				'actions' => sprintf( '<p>You can examine the large autoloaded rows in the %soptions table. Some could be set not to be autoloaded.</p>', $wpdb->prefix )
-			);		}
+				'label' => _x( 'Large autoloaded option values', 'Title of section in Site Health results', 'site-health-db-checks' ),
+				'description' => sprintf( '<p>%s %s</p>',
+						/* translators: %d: The number of large autoloaded options in the wp_options table. */
+						sprintf( _n( 'The options table has %d large autoloaded option.', 'The options table has %d large autoloaded options.', $lg_values[0][0], 'site-health-db-checks' ), $lg_values[0][0] ),
+						__( 'This may impact your site performance.', 'site-health-db-checks' ) ),
+						/* translators: %s: This is the name of the wp_options table. */
+				'actions' => sprintf( '<p>%s</p>', sprintf( __( 'You can examine the large autoloaded rows in the %s table. Some could be set not to be autoloaded.', 'site-health-db-checks' ), '<code>' . $wpdb->prefix . 'options' . '</code>' ) )
+			);
+		}
 
 		return array(
 			'test'=> $test,
 			'status' => 'good',
 			'badge'       => array(
-				'label' => 'Performance',
+				'label' => __( 'Performance' ),
 				'color' => 'blue',
 			),
-			'label' => 'Large autoloaded options',
-			'description' => 'Your database does not have any large autoloaded options values.',
+			'label' => _x( 'Large autoloaded option values', 'Title of section in Site Health results', 'site-health-db-checks' ),
+			'description' => sprintf( '<p>%s</p>', __( 'Your database does not have any large autoloaded options values.', 'site-health-db-checks' ) ),
 		);
 	}
 
