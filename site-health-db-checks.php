@@ -74,7 +74,7 @@ class SiteHealthDBChecks {
 				'test'=> $test,
 				'status' => 'recommended',
 				'badge'       => array(
-					'label' => __( 'Performance' ),
+					'label' => __( 'Performance', 'site-health-db-checks' ),
 					'color' => 'blue',
 				),
 				'label' => _x( 'Orphaned Postmeta', 'Title of section in Site Health results', 'site-health-db-checks' ),
@@ -91,7 +91,7 @@ class SiteHealthDBChecks {
 			'test'=> $test,
 			'status' => 'good',
 			'badge'       => array(
-				'label' => __( 'Performance' ),
+				'label' => __( 'Performance', 'site-health-db-checks' ),
 				'color' => 'blue',
 			),
 			'label' => _x( 'Orphaned Postmeta', 'Title of section in Site Health results', 'site-health-db-checks' ),
@@ -110,7 +110,7 @@ class SiteHealthDBChecks {
 				'test'=> $test,
 				'status' => 'recommended',
 				'badge'       => array(
-					'label' => __( 'Performance' ),
+					'label' => __( 'Performance', 'site-health-db-checks' ),
 					'color' => 'blue',
 				),
 				'label' => _x( 'Large autoloaded option values', 'Title of section in Site Health results', 'site-health-db-checks' ),
@@ -128,7 +128,7 @@ class SiteHealthDBChecks {
 			'test'=> $test,
 			'status' => 'good',
 			'badge'       => array(
-				'label' => __( 'Performance' ),
+				'label' => __( 'Performance', 'site-health-db-checks' ),
 				'color' => 'blue',
 			),
 			'label' => _x( 'Large autoloaded option values', 'Title of section in Site Health results', 'site-health-db-checks' ),
