@@ -9,7 +9,7 @@ License: GPL v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: site-health-db-checks
 Domain Path: /languages
-Version: 0.1.20251118
+Version: 0.1.20251126
 */
 
 defined( 'ABSPATH' ) || exit;
@@ -41,13 +41,13 @@ class SiteHealthDBChecks {
 	}
 
 
+	// This is no longer needed as WordPress 6.7+ will automatically load translations when needed.
 	/*public function load_translations() {
 		load_plugin_textdomain( 'site-health-db-checks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}*/
 
 
 	public function registerTests( $tests ) {
-		//error_log( var_export( $tests, true ) );
 		$tests['direct']['dcwd_orphan_postmeta'] = [
 			'label' => _x( 'Orphaned Postmeta', 'Title of section in Site Health results', 'site-health-db-checks' ),
 			'test'  => array( $this, 'testOrphanedPostmeta' ),
@@ -119,7 +119,8 @@ class SiteHealthDBChecks {
 						sprintf( _n( 'The options table has %d large autoloaded option.', 'The options table has %d large autoloaded options.', $lg_values[0][0], 'site-health-db-checks' ), $lg_values[0][0] ),
 						__( 'This may impact your site performance.', 'site-health-db-checks' ) ),
 						/* translators: %s: This is the name of the wp_options table. */
-				'actions' => sprintf( '<p>%s</p>', sprintf( __( 'You can examine the large autoloaded rows in the %s table. Some could be set not to be autoloaded.', 'site-health-db-checks' ), '<code>' . $wpdb->prefix . 'options' . '</code>' ) )
+				'actions' => sprintf( '<p>%s</p><p>%s</p>', sprintf( __( 'You can examine the large autoloaded rows in the %s table. Some could be set not to be autoloaded.', 'site-health-db-checks' ), '<code>' . $wpdb->prefix . 'options' . '</code>' ),
+							__( 'You can install <a href="https://wordpress.org/plugins/aaa-option-optimizer/">AAA Option Optimizer</a> to review unused options and value sizes.', 'site-health-db-checks' ) )
 			);
 		}
 
